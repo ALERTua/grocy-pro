@@ -162,12 +162,26 @@ async def test_card_in_browser(
         "show_pictures",
         "show_log",
         "confirm_delete",
+        "due_within_days",
+        "track_execution_now",
     ]
     assert checks["editor_config"] == {
         "type": "custom:grocy-action-card",
         "title": "Kitchen",
         "show_log": False,
     }
+
+    # due_within_days: overdue chores plus the ones due within N days; unset = all.
+    all_chores = ["Late", "Today", "Tomorrow", "Later", "Never"]
+    assert checks["chores_unset"] == all_chores
+    assert checks["chores_null"] == all_chores
+    assert checks["chores_zero"] == ["Late", "Today"]
+    assert checks["chores_one"] == ["Late", "Today", "Tomorrow"]
+    assert checks["chores_text"] == ["Late", "Today", "Tomorrow"]
+
+    # track_execution_now is opt-in; the default sends the same call as before.
+    assert checks["done_default"] == [{"chore_id": 101, "track_execution_now": False}]
+    assert checks["done_now"] == [{"chore_id": 101, "track_execution_now": True}]
 
     # Every payload the card sent is accepted by the real action schemas and
     # reaches Grocy.

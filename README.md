@@ -66,9 +66,13 @@ entity_prefix: grocy      # if you renamed the entities, e.g. sensor.kitchen_sto
 show_pictures: true       # product pictures from Grocy
 show_log: true            # short log of the actions you took, with errors
 confirm_delete: true      # ask before the bin icon deletes a task or chore in Grocy
+due_within_days: 1        # chores: show overdue ones plus those due within N days (0 = today); unset = show all
+track_execution_now: false  # chores: true tracks Done at the moment of the tap, not at the scheduled time
 ```
 
-`title`, `entity_prefix` and the switches can also be set in the visual editor. The card follows your Home Assistant theme (light or dark), switches to one column on narrow screens and works in Sections, Masonry and Panel views. An item disappears right after you tap it; the integration refreshes its data straight after every action.
+By default Done tracks a chore at its scheduled time, so a chore that repeats on a calendar slot (for example every 30th) keeps its slot. Set `track_execution_now: true` when the next date must count from the moment of the tap, for example a chore that repeats every 60 days after the last time.
+
+`title`, `entity_prefix`, `due_within_days` and the switches can also be set in the visual editor. The card follows your Home Assistant theme (light or dark), switches to one column on narrow screens and works in Sections, Masonry and Panel views. An item disappears right after you tap it; the integration refreshes its data straight after every action.
 
 ## Installation
 

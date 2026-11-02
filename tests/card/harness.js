@@ -152,6 +152,42 @@ async function click(card, selector) {
     c.editor_label = form ? form.computeLabel({ name: "entity_prefix" }) : "";
     form.dispatchEvent(new CustomEvent("value-changed", { detail: { value: { ...form.data, title: "Kitchen", show_log: false } } }));
     c.editor_config = changed;
+
+    // Chores filter: overdue chores plus chores due within N days.
+    const stamp = (offsetDays, hour) => {
+      const d = new Date();
+      d.setDate(d.getDate() + offsetDays);
+      const p = (n) => String(n).padStart(2, "0");
+      return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(hour)}:00:00`;
+    };
+    const choreStates = JSON.parse(JSON.stringify(STATES));
+    choreStates["sensor.grocy_chores"].attributes.chores = [
+      { id: 101, name: "Late", next_estimated_execution_time: stamp(-3, 12), track_date_only: true },
+      { id: 102, name: "Today", next_estimated_execution_time: stamp(0, 23), track_date_only: true },
+      { id: 103, name: "Tomorrow", next_estimated_execution_time: stamp(1, 12), track_date_only: true },
+      { id: 104, name: "Later", next_estimated_execution_time: stamp(5, 12), track_date_only: true },
+      { id: 105, name: "Never", next_estimated_execution_time: "2999-12-31 23:59:59" },
+    ];
+    const choreNames = async (config) => {
+      const card = await newCard(config, choreStates);
+      return [...card.shadowRoot.querySelectorAll('.item .lead ha-icon[icon="mdi:broom"]')]
+        .map((icon) => icon.closest(".item").querySelector(".name").textContent);
+    };
+    c.chores_unset = await choreNames({});
+    c.chores_zero = await choreNames({ due_within_days: 0 });
+    c.chores_one = await choreNames({ due_within_days: 1 });
+    c.chores_text = await choreNames({ due_within_days: "1" });
+    c.chores_null = await choreNames({ due_within_days: null });
+
+    // Done sends track_execution_now only when the card option asks for it.
+    const doneCall = async (config) => {
+      const card = await newCard(config, choreStates);
+      const calls = results.calls.length;
+      await click(card, 'button[data-action="execute_chore"]');
+      return results.calls.slice(calls).map((call) => call.data);
+    };
+    c.done_default = await doneCall({});
+    c.done_now = await doneCall({ track_execution_now: true });
   } catch (err) {
     results.errors.push(`harness: ${err && err.stack ? err.stack : err}`);
   }

@@ -16,6 +16,7 @@ const DEFAULTS = {
   show_pictures: true,
   show_log: true,
   confirm_delete: true,
+  track_execution_now: false,
 };
 
 const DEFAULT_LOCATIONS = { 1: "Pantry", 2: "Fridge", 3: "Freezer", 4: "Cupboards" };
@@ -305,10 +306,16 @@ class GrocyActionCard extends HTMLElement {
       (item.overdue ? overdue : tasks).push(item);
     }
 
+    // Without due_within_days every chore is shown. With it, only overdue chores
+    // and chores due within that many days (0 = today) are shown.
+    const horizon = Number(cfg.due_within_days);
+    const filterChores = cfg.due_within_days !== undefined && cfg.due_within_days !== null
+      && cfg.due_within_days !== "" && Number.isFinite(horizon);
     for (const chore of this._list("chores")) {
       if (this._isHidden("chore", chore.id)) continue;
       const when = chore.next_estimated_execution_time;
       const days = daysUntil(when, now);
+      if (filterChores && (days === null || days > horizon)) continue;
       const date = parseDate(when);
       chores.push({
         type: "chore", id: chore.id, name: chore.name || chore.chore_name || `Chore ${chore.id}`,
@@ -498,7 +505,7 @@ class GrocyActionCard extends HTMLElement {
 
     const calls = {
       complete_task: ["complete_task", { task_id: id }, "completed"],
-      execute_chore: ["execute_chore", { chore_id: id }, "done"],
+      execute_chore: ["execute_chore", { chore_id: id, track_execution_now: this._config.track_execution_now === true }, "done"],
       track_battery: ["track_battery", { battery_id: id }, "charged"],
       consume: ["consume_product_from_stock", { product_id: id, amount: 1, spoiled: false, transaction_type: "consume" }, "consumed (1)"],
       waste: ["consume_product_from_stock", { product_id: id, amount: 1, spoiled: true, transaction_type: "consume" }, "thrown away (1)"],
@@ -549,6 +556,8 @@ const EDITOR_SCHEMA = [
   { name: "show_pictures", selector: { boolean: {} } },
   { name: "show_log", selector: { boolean: {} } },
   { name: "confirm_delete", selector: { boolean: {} } },
+  { name: "due_within_days", selector: { number: { min: 0, mode: "box" } } },
+  { name: "track_execution_now", selector: { boolean: {} } },
 ];
 
 const EDITOR_LABELS = {
@@ -557,6 +566,8 @@ const EDITOR_LABELS = {
   show_pictures: "Show product pictures",
   show_log: "Show the action log",
   confirm_delete: "Ask before deleting tasks and chores",
+  due_within_days: "Chores: show overdue and due within N days (empty = all)",
+  track_execution_now: "Chores: track Done at the moment of the tap",
 };
 
 class GrocyActionCardEditor extends HTMLElement {
