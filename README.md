@@ -71,7 +71,18 @@ due_within_days: 1        # only overdue chores and chores due within 1 day (def
 track_execution_now: false # Done on a late interval chore counts from today (see below)
 ```
 
-With `track_execution_now: true`, Done keeps the scheduled slot for chores that repeat every week, month or year (interval 1), and tracks every other chore (for example "every 2 weeks" or "every 3 days") at the moment you press Done, so a late Done counts from today. Without it, Done always tracks at the scheduled time, as before.
+The two settings only matter when you press Done late.
+
+By default, Done tracks a chore at its scheduled time, as before. A chore that you did late can then be due again at once.
+
+With `track_execution_now: true`, the card picks the time for you, by the type of the chore:
+
+| Chore | Done tracks it at | Example |
+|---|---|---|
+| Repeats every week, month or year (interval 1) | The scheduled slot | "Every week": you keep your weekday |
+| Any other schedule | The moment you press Done | "Every 2 weeks" or "every 3 days": the next due date counts from today |
+
+You do not need to know the chore types. Turn the option on, and a late Done counts from today where that is the right thing.
 
 `title`, `entity_prefix`, `due_within_days` and the switches can also be set in the visual editor. The card follows your Home Assistant theme (light or dark), switches to one column on narrow screens and works in Sections, Masonry and Panel views. An item disappears right after you tap it; the integration refreshes its data straight after every action.
 
