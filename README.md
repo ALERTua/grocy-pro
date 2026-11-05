@@ -6,6 +6,7 @@
 
 **[Grocy](https://grocy.info) in Home Assistant: stock and due dates, the shopping list as a to-do list, chores, tasks, batteries, the meal plan and Grocy's calendar, plus actions and a one-tap dashboard card.**
 
+[![Open your Home Assistant instance and open this repository in the Marketplace.](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=DonTranQuiL&repository=grocy-pro&category=integration)
 [![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=DonTranQuiL&repository=grocy-pro&category=integration)
 [![Open your Home Assistant instance and start setting up Grocy Pro.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=grocy_pro)
 
@@ -76,7 +77,16 @@ With `track_execution_now: true`, Done keeps the scheduled slot for chores that 
 
 ## Installation
 
-### HACS (recommended)
+### Marketplace (Home Assistant 2026.11 and newer, recommended)
+
+[![Open your Home Assistant instance and open this repository in the Marketplace.](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=DonTranQuiL&repository=grocy-pro&category=integration)
+
+1. In Home Assistant, go to **Settings > Marketplace** and search for **Grocy Pro** (or use the button above).
+2. Open it and select **Install**. The setup starts right away, no restart needed.
+
+> **Not in the Marketplace catalog yet?** Grocy Pro is not in the HACS default list yet, so it does not show up in the Marketplace search. Until it is, select **Add from link** in the upper-right corner of the Marketplace, enter `https://github.com/DonTranQuiL/grocy-pro`, select **Add**, then open Grocy Pro and select **Install**.
+
+### HACS (Home Assistant before 2026.11)
 
 Click **Open in HACS** above, or add the repository yourself:
 
