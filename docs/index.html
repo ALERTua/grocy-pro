@@ -57,7 +57,7 @@
             <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6">Your pantry,<br>on your dashboard.</h1>
             <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10">Stock and due dates, the shopping list as a to-do list, chores, tasks, batteries, the meal plan and Grocy's calendar. Book purchases and chores from automations, or with one tap on the included card.</p>
             <div class="flex flex-wrap items-center justify-center gap-4">
-                <a href="https://my.home-assistant.io/redirect/hacs_repository/?owner=DonTranQuiL&amp;repository=grocy-pro&amp;category=integration" class="px-6 py-3 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-semibold inline-flex items-center gap-2"><i data-lucide="download" class="w-4 h-4"></i> Open in HACS</a>
+                <a href="https://my.home-assistant.io/redirect/marketplace_repository/?owner=DonTranQuiL&amp;repository=grocy-pro&amp;category=integration" class="px-6 py-3 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-semibold inline-flex items-center gap-2"><i data-lucide="download" class="w-4 h-4"></i> Open in Marketplace</a>
                 <a href="#upgrade" class="px-6 py-3 rounded-full border border-cyan-500/50 text-cyan-200 hover:border-cyan-300">Upgrading from 2.x?</a>
                 <a href="https://github.com/DonTranQuiL/grocy-pro/releases" class="px-6 py-3 rounded-full border border-slate-600 text-slate-200 hover:border-slate-400">Releases</a>
             </div>
@@ -172,17 +172,30 @@ actions:
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-14">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Installation</h2>
-                <p class="text-slate-400">HACS, a restart, and a Grocy API key.</p>
+                <p class="text-slate-400">Marketplace (or HACS on older versions), then a Grocy API key.</p>
             </div>
             <div class="grid lg:grid-cols-2 gap-8">
-                <div class="rounded-2xl border border-slate-700/50 bg-slate-800/30 p-8">
-                    <h3 class="text-2xl font-bold text-white mb-6">HACS</h3>
-                    <ol class="space-y-4 text-sm text-slate-300">
-                        <li>1. Click <a class="text-amber-300 hover:underline" href="https://my.home-assistant.io/redirect/hacs_repository/?owner=DonTranQuiL&amp;repository=grocy-pro&amp;category=integration">Open in HACS</a>, or add <code class="text-amber-300">https://github.com/DonTranQuiL/grocy-pro</code> as a custom repository (category Integration).</li>
-                        <li>2. Download Grocy Pro and restart Home Assistant.</li>
-                        <li>3. In Grocy: Settings → Manage API keys → Add.</li>
-                        <li>4. Settings → Devices &amp; services → Add integration → Grocy Pro, then enter the URL, API key and port (9192 for the add-on).</li>
-                    </ol>
+                <div class="space-y-8">
+                    <div class="rounded-2xl border border-amber-500/40 bg-amber-900/10 p-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Marketplace</h3>
+                        <p class="text-sm text-slate-400 mb-6">Home Assistant 2026.11 and newer, recommended.</p>
+                        <ol class="space-y-4 text-sm text-slate-300">
+                            <li>1. Settings → Marketplace, then search for <strong class="text-white">Grocy Pro</strong> (or use Add from link, see below).</li>
+                            <li>2. Open it and click Install. Setup starts right away, no restart needed.</li>
+                        </ol>
+                        <a href="https://my.home-assistant.io/redirect/marketplace_repository/?owner=DonTranQuiL&amp;repository=grocy-pro&amp;category=integration" class="mt-6 px-5 py-2.5 rounded-full bg-amber-600 hover:bg-amber-500 text-white text-sm font-semibold inline-flex items-center gap-2">Open in Marketplace</a>
+                        <p class="mt-5 text-sm text-slate-400"><strong class="text-white">Not in the Marketplace catalog yet?</strong> Grocy Pro is not in the HACS default list yet, so search won't find it. Until it is, select <strong class="text-white">Add from link</strong> in the upper-right corner of the Marketplace, enter <code class="text-amber-300">https://github.com/DonTranQuiL/grocy-pro</code>, select Add, then open Grocy Pro and select Install.</p>
+                    </div>
+                    <div class="rounded-2xl border border-slate-700/50 bg-slate-800/30 p-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">HACS</h3>
+                        <p class="text-sm text-slate-400 mb-6">Home Assistant before 2026.11.</p>
+                        <ol class="space-y-4 text-sm text-slate-300">
+                            <li>1. Click <a class="text-amber-300 hover:underline" href="https://my.home-assistant.io/redirect/hacs_repository/?owner=DonTranQuiL&amp;repository=grocy-pro&amp;category=integration">Open in HACS</a>, or add <code class="text-amber-300">https://github.com/DonTranQuiL/grocy-pro</code> as a custom repository (category Integration).</li>
+                            <li>2. Download Grocy Pro and restart Home Assistant.</li>
+                            <li>3. In Grocy: Settings → Manage API keys → Add.</li>
+                            <li>4. Settings → Devices &amp; services → Add integration → Grocy Pro, then enter the URL, API key and port (9192 for the add-on).</li>
+                        </ol>
+                    </div>
                 </div>
                 <div class="rounded-2xl border border-cyan-500/30 bg-cyan-900/10 p-8">
                     <h3 class="text-xl font-bold text-white mb-3">Dashboard card</h3>
